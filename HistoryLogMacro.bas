@@ -10,6 +10,7 @@ Sub UpdateHistoryLog()
     Dim rawMap As Object
     Dim i As Long
     Dim histRow As Long
+    Dim histKey As Variant
     Dim paymentID As String
     Dim status As String
 
@@ -67,11 +68,11 @@ Sub UpdateHistoryLog()
     Next i
 
     ' Mark Payment IDs not present in Raw report as Cleared
-    For Each paymentID In histMap.Keys
-        If Not rawMap.Exists(paymentID) Then
-            histRow = histMap(paymentID)
+    For Each histKey In histMap.Keys
+        If Not rawMap.Exists(histKey) Then
+            histRow = histMap(histKey)
             histSheet.Cells(histRow, "B").Value = "Cleared"
             histSheet.Cells(histRow, statusCol).Value = "Cleared"
         End If
-    Next paymentID
+    Next histKey
 End Sub
